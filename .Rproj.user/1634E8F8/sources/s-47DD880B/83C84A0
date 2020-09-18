@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1600431742950.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "83C84A0",
+    "lastKnownWriteTime" : 1598777604,
+    "last_content_update" : 1598777604,
+    "path" : "~/R/win-library/4.0/gridExtra/doc/gtable.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "5,36",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
