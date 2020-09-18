@@ -1,0 +1,57 @@
+---
+title: "1. Introduction"
+author: "Alexandr Byzov"
+date: "07 09 2020"
+output: html_document
+---
+
+# Preface
+
+This instruction manual belongs to the course 'Nonreactive and Big Data in Social Sciences' which is a part of Complex Social Analysis Master program of NRU HSE. 
+
+# Introduction
+
+## RStudio
+
+"RStudio is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management" [Learn more about RStudio](https://rstudio.com/products/rstudio/features/).
+
+### [Creating a comfortable layout in RStudio](https://www.r-bloggers.com/a-perfect-rstudio-layout/)
+
+1. Go to “Tools”;
+2. Here click on “Global Options”;
+3. Choose “Pane Layout”;
+4. Click on the top right menu with “Environment…” and change it to “Console”
+5. Tick “Environment” in the bottom right square
+6. Click on "Ok"
+7. Minimize your bottom left window in R
+
+In sum, you need ticks on 'Environment', 'Files', 'Plots', 'Packages', 'Help', and 'Viewer' at the right bottom window
+
+Your layout should like this one
+![Layout](Images/1_layout.png)
+
+- Scripts are written on the left window;
+- Top right window is for code progression and results
+- Variables, models, data, files, graphs, and help could be seen on the right bottom window
+
+### [Creating projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+
+1. Go to "File";
+2. Here click on "New Project";
+3. Choose "New Directory";
+4. In the following menu choose "New project";
+5. In this menu choose a folder where you will keep your projects and write down title of the project directory;
+6. Click on "Create project".
+
+Projects are important for numerous reason [see](https://r4ds.had.co.nz/workflow-projects.html), but one of the key features is that you could easily access files that are in project folder with R without writing absolute path to the file (i.e. insted of C://Users/Alex/Folder/Folder/More Folders/Even More folders/My project/Data/data.csv you could just write Data/data.csv)
+
+### Creating and saving scripts
+
+First, create an R script *File > New File > R Script* and save it with *Ctrl+S*. This script will automatically suggest a project folder. Save it under the title 'Script'.
+
+## Commentaries and sections
+
+During this course we will use two types of comments:
+
+  1. Section, which is created with Ctrl+Shift+R;
+  2. Line comment, which is created with # or Ctrl+Shift+C

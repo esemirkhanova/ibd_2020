@@ -1,0 +1,46 @@
+---
+title: "Home task 1"
+author: "Alexandr Byzov"
+date: "09 09 2020"
+output: html_document
+---
+
+This is an automatically graded assignment. That is why you need to follow instructions to the letter (especially on naming resulting variables). Send an R script with your answers to Microsoft Teams by Sept 14, 09:00 and name it using the following pattern: SURNAME_NAME-HW_1.R
+
+## Creating basic objects 
+
+1. Create a vector of three integers. Assign the results to *vector_1*;
+2. Create a vector of two logical values. Assign the results to *vector_2*;
+3. Create a matrix of two rows and three columns. Assign the results to *matrix_3*;
+4. Create a factor of ten elements that contains education level (Bachelor, Master, PhD). Assign the results to *factor_4*;
+5. Create a list that contains three vectors: character one, factor one, and logical one. Assign the results to *list_5*;
+6. Create a data frame that contains five rows and three named columns (id, name, email). Assign the results to *df_6*;
+
+## Understanding the functions and arguments of various functions
+
+EXAMPLE:
+Write down the function name that creates a data.frame?
+```{r}
+answer_example <- 'data.frame()'
+```
+
+7. Call help on a function **sort()**. What does it do? Write down value of an argument **na.last**, that will remove all NAs in a vector. Assign the answer to *answer_7*;
+8. Write down the function name to generate random sequence of normal distribution values with specified mean and sd. Assign the answer to *answer_8*;
+9. Write down the argument name to assign row names in data.frame(). Assign the results to *answer_9*;
+
+## Simulating data
+
+10. Create a data frame with several columns:
+
+  - id - 10 integer values
+  - gndr - 10 factor values
+  - age - 10 integer values
+  - salary - 10 double values
+  - satisfaction_level - 10 factor values
+  - comments - 10 character values
+  
+Assign the results to *df_10*;
+
+
+
+

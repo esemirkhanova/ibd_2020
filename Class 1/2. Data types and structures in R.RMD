@@ -1,0 +1,230 @@
+---
+title: "2. Data types and structures in R"
+author: "Alexandr Byzov"
+date: "07 09 2020"
+output: html_document
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(comment = NA)
+```
+
+# Introduction into objects in R
+
+The most important data structure in R is a vector. Vectors come in two types: atomic vectors and lists.
+
+## Atomic vectors 
+
+There are at least four classes of atomic vectors:
+
+  1. Integers (7L, 5L, 23L);
+  2. Double (2.32, 1.19, 4.000);
+  3. Logical (TRUE, FALSE, T, F);
+  4. Character ('text', '5 in quotation mark is still a character')
+
+To create a vector of each type you can just write it down and press *Ctrl+Enter* on this line or click on *'Run'* in the top right corner of the script window.
+```{r}
+5
+```
+Your console have just provided a following output: [1] 5. '[1]' stands for the first element of your output.
+```{r}
+'text'
+```
+
+```{r}
+TRUE
+```
+
+Missing values in R are represented with *NA* special symbol.
+```{r}
+NA
+```
+
+These vectors are scalar, i.e. they contain only an individual value. To create vectors of two elements or more you need to use a function **c()**.
+```{r}
+c(1.1, 2, 3.4, 5.55)
+```
+
+### Attributes 
+
+Each R object has attributes. They contain metadata on the object. These attribute include:
+
+  1. dimensionality of an object - could be accesed with dim() function
+  2. class of an object - could be accesed with typeof() or class()
+  3. length of an object - could be accesed with length()
+  4. other user-defined attributes/metadata of an object
+  
+### Implicit coercion 
+  
+It is crucial to remember that *an atomic vector can only contain objects of the same class*. You can see what happens if you create a vector with mixed classes.
+
+Vector 1:
+```{r}
+c(TRUE, 1L)
+```
+Vector 2:
+```{r}
+c(TRUE, 1L, 2.0)
+```
+Vector 3:
+```{r}
+c(TRUE, 1L, 2.0, '3')
+```
+  
+Call function typeof() on each of the aforementioned vectors:
+Vector 1:
+```{r}
+typeof(c(TRUE, 1L))
+```
+Vector 2:
+```{r}
+typeof(c(TRUE, 1L, 2.0))
+```
+Vector 3:
+```{r}
+typeof(c(TRUE, 1L, 2.0, '3'))
+```
+
+As it can be seen, R has coerced data to the most encompassing atomic vector class. This fact will be extremely important throughout this course.
+
+### Explicit coercion
+
+You can also invoke coercion with the following functions: as.integer(), as.double(), as.logical(), as.character()
+```{r}
+as.logical(c(1, 2, 3, 0))
+```
+
+```{r}
+as.integer(2.3, 4.5)
+```
+
+```{r}
+as.character(T, F, 1, 2, 3)
+```
+
+### Matrices 
+
+Matrices are an atomic vectors with a dimension attribute. They are computationally efficient, which is why we will use them a lot in this course. Matrices are created with the following function: **matrix()**. This function has several arguments. To understand how each function works, you can invoke its documentation with question mark before function:
+```{r}
+#?matrix()
+```
+
+  1. what does *nrow* argument do?
+  2. what does *byrow* argument do?
+
+To create a matrix of 6 elements with two columns and three rows, you need to use at least one additional argument, either nrow or ncol:
+
+```{r}
+matrix(c(1, 2, 3, 4, 5, 6), nrow = 3)
+```
+
+```{r}
+matrix(c(1, 2, 3, 4, 5, 6), ncol = 2)
+```
+
+Matrices are filled columnwise by default. To change this behavior, you need to change the value of an argument *byrow*
+
+```{r}
+matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, byrow = TRUE)
+```
+
+Previously, I have mentioned that matrices have dimensions. To check dimensions of this matrix, you can use function **dim()**
+```{r}
+dim(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2))
+```
+
+### [S3 atomic vectors](https://adv-r.hadley.nz/vectors-chap.html#s3-atomic-vectors)
+
+S3 objects are an important topic, however it is a little advanced for now. However, you will rely heavily on one instance of such objects, factors. 
+
+Factor is  a vector with predefined values. In practice, factors are employed to store categorical data. Most of the sociological surveys produce factors.
+
+Factors are built upon integer class. They have an additional attribute - levels. To create a factor, you need to call function *factor()*. Call the documentation for this function and try to specify a sample of 2 men and 4 women in one vector.
+```{r}
+#?factor()
+```
+```{r}
+factor(c(1, 1, 2, 1, 1, 2), c(1, 2), c('Men', 'Women'))
+```
+```{r}
+levels(factor(c(1, 1, 2, 1, 1, 2), c(1, 2), c('Men', 'Women')))
+```
+
+## Lists
+
+List is a special type of vector, which can contain elements of different classes or, actually, anything you want. It is an extremely versatile and important data type. 
+
+To create a list, you can use function **list()**.
+```{r}
+list(
+  c(1, 2, 3)
+)
+```
+```{r}
+list(
+  NA,
+  c(1,2,5),
+  TRUE
+)
+```
+
+List is a recursive data structure, i.e. they can contain lists inside another lists. It becomes crucial, if you want to parse unstructured data.
+
+```{r}
+list(
+  list(
+    1,
+    c(1, 2),
+    list(
+      c(1, 2, 3)
+    )
+  )
+)
+```
+
+## Data frames
+
+Data frames are a special implementation of a list, where each element needs to have the same length. They are primarily used to store tabular data. To create a data frame, you need to use **data.frame()** function.
+
+```{r}
+data.frame(
+  c(1, 2, 3), #length of 3 elements
+  c(2, 3, 4), #length of 3 elements
+  c('t', 't', 't') # length of 3 elements
+  )
+```
+
+```{r, eval=F}
+data.frame(
+  c(1, 2, 3), #length of 3 elements
+  c(2, 3, 4), #length of 3 elements
+  c('t', 't', 't', 't') # length of 4 elements, the code will throw an error
+  )
+```
+
+To name columns of a data frame, you should use '='.
+
+```{r}
+data.frame(
+  column_1 = c(1, 2, 3),
+  column_2 = c(2, 3, 4)
+)
+```
+
+# Creating a variable
+
+To assign variable name to these data types you need to use assignment operator (<-, Alt+-)
+```{r}
+vector_1 <- c(1, 2, 3)
+data_frame_2 <- data.frame(
+  column_1 = c(1, 2, 3),
+  column_2 = c(2, 3, 4)
+)
+```
+
+
+# Additional materials
+
+[How to name variables](http://adv-r.had.co.nz/Style.html#:~:text=Object%20names&text=Variable%20and%20function%20names%20should,this%20is%20not%20easy!).)
+To refresh your memory on this part of the course, you could always read this [cheat sheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf)
+![](https://www.youtube.com/watch?v=vGY5i_J2c-c&feature=youtu.be&t=4m43s)
