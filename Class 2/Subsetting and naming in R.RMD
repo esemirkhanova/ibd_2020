@@ -1,0 +1,168 @@
+---
+title: "3. Subsetting"
+author: "Alexandr Byzov"
+date: "07 09 2020"
+output: html_document
+---
+
+# Subsetting atomic vectors  
+
+There are many ways to subset atomic vectors. [H. Wickham](https://adv-r.hadley.nz/subsetting.html) describes six ways to subset this type of vectors.
+
+But before you dive into various subsetting techniques, create a vector of six elements:
+```{r}
+vector_to_subset <- c(5, 6, 7, 8, 9, 10)
+```
+1. A subset [] with positive integers will return an element or elements by their positions
+```{r}
+vector_to_subset[1] # NB! R starts counting from 1, not from 0 as Python does
+```
+```{r}
+vector_to_subset[c(1, 3, 5)]
+```
+
+2. A subset with negative integers will exclude an element or elements by their positions
+```{r}
+vector_to_subset[-1]
+```
+```{r}
+vector_to_subset[c(-1, -3, -5)] # You can not mix positive and negative integers in the subset
+
+```
+
+3. Subset with logical vectors will select element or elements where the corresponding logical value is TRUE
+
+```{r}
+vector_to_subset[c(T,T,T,F,F,F)]
+
+```
+4. Subset with character vectors will return elements with matching names if the vector is named
+```{r}
+vector_to_subset_2 <- c(a = 1, b = 2)
+vector_to_subset_2['a']
+```
+
+# Subsetting matrices
+
+Matrix is a two dimensional object with rows and columns, so to subset elements from this data structure, you need to specify both rows and columns.
+```{r}
+m <- matrix(c(1, 2, 3, 4, 5, 6), ncol = 2)
+```
+
+1. A subset of second column and first two rows
+```{r}
+#matrix[rows, columns]
+m[c(1, 2), 2]
+```
+2. Exclusion of first column
+```{r}
+#m[empty_to_subset_all_rows, columns]
+m[,-1]
+```
+3. A subset of first and third row with logical statement
+```{r}
+m[c(T,F,T),]
+```
+4. A subset with names
+```{r}
+colnames(m) <- c('first', 'second')
+m[,'second']
+```
+
+# Subsetting lists
+
+To subset an element of a list, you could use these operators: [], [[]], and $. 
+
+1. [] always returns smaller lists and works under the same principles as [] in vectors 
+```{r}
+l <- list(c(1, 2, 3), c(1,2,3), c(T,T), F)
+```
+```{r}
+l[1]
+```
+```{r}
+typeof(l[1])
+```
+```{r}
+l[c(1,4)]
+```
+
+```{r}
+l[-1]
+```
+
+2. [[]] and $ are used to extract a single element of a list. It always returns this element
+
+See the difference
+```{r}
+l[1]
+typeof(l[1])
+```
+```{r}
+l[[1]]
+typeof(l[[1]])
+```
+$ is used with named lists
+```{r}
+named_list <- list(
+  element_1 = c(1, 2, 3),
+  element_2 = c(2, 3, 4),
+  element_3 = T,
+  element_12 = c(T,F),
+  element_432 = 'test'
+)
+```
+```{r}
+named_list$element_1
+```
+
+Beware that $ uses partial matching. It means that even if you don't write full name of a vector, R will still try to find it. It is a bad practice, as it tremendously diminishes predictability of a code.
+```{r}
+named_list$element_4
+```
+
+# Subsetting data frames
+
+```{r}
+df <- data.frame(
+  a = c(1, 2),
+  b = c(2, 3), 
+  c = c(3, 4)
+)
+```
+
+Data frames have the characteristics of matrices and lists:
+
+1. If you subset with a single vector inside square brackets [1], data frames are subsetted the same way as atomic vectors
+```{r}
+df[1]
+```
+```{r}
+df[1:2]
+```
+```{r}
+df[-1]
+```
+```{r}
+df['b']
+```
+
+2. If you subset with two vectors inside square brackets[1, 2], data frames are subsetted the same way as matrices
+```{r}
+df[1,]
+```
+
+```{r}
+df[1,2]
+```
+
+# Subsetting and assignments
+
+All subsetting operators can be combined with assignment to modify selected values of an input vector: this is called subassignment. The basic form is x[i] <- value.
+```{r}
+vector_1 <- c(1, 2, 3, 4)
+print(vector_1)
+vector_1[2] <- 5
+print(vector_1)
+```
+

@@ -1,0 +1,128 @@
+---
+title: "Intro to web scraping: API"
+author: "Александр Бызов"
+date: "20 09 2020"
+output: html_document
+---
+
+# Concise introduction to Web scraping
+
+Web scraping (web harvesting, web data extraction) is a term for various methods to collect information from across the Internet. Generally, this is done with software that simulates human Web surfing to collect specified bits of information from different websites. 
+
+![](Images/web data.jpg)
+(Image from [Munzert et al](http://r-datacollection.com/))
+
+During this project we will work primarily with JSON data. 
+
+## JSON 
+
+JSON is a syntax for storing and exchanging data [see](https://www.w3schools.com/js/js_json_intro.asp).
+JSON data is written as "name":"value" pairs. When we read JSON file in R with read_json, we receive following structure:
+list(name = value)
+```{r}
+install.packages('jsonlite')
+library(jsonlite)
+read_json('JSON_example.JSON')
+```
+
+We will learn more about JSON when we actually parse data 
+
+# API
+
+In computer programming, an application programming interface (API) is a set of subroutine definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer. An API may be for a web-based system, operating system, database system, computer hardware, or software library. An API specification can take many forms, but often includes specifications for routines, data structures, object classes, variables, or remote calls. POSIX, Windows API and ASPI are examples of different forms of APIs. Documentation for the API usually is provided to facilitate usage and implementation. [see](https://en.wikipedia.org/wiki/Application_programming_interface)
+
+# Basic steps of scraping data with API
+
+1. Find out if the needed service provides an API for scraping data;
+2. Find out about terms and agreements of using the API: quotas, need for the API key, commercial or non-commercial usage, etc.;
+3. Find out the API base url;
+4. Find out the API's parameters and its values to communicate with it;
+5. Send requests to retrieve necessary data.
+
+To find out more about [APIs terms see](https://rapidapi.com/blog/api-glossary/)
+
+## Example 1: Studio Ghibli API
+
+1. I find out about the [API](https://github.com/janaipakos/ghibliapi) via this extremely helpful [site](https://www.programmableweb.com)
+2. API does not require any authentification, [see](https://ghibliapi.herokuapp.com/#)
+3. The base url for this API is https://ghibliapi.herokuapp.com
+4. API parameters are described [here and below](https://ghibliapi.herokuapp.com/#tag/Films%2Fpaths%2F~1films%2Fget).
+5. This request will return JSON with all the films from Ghibli studio: https://ghibliapi.herokuapp.com/films
+
+```{r}
+# library(tidyverse)
+# library(jsonlite)
+# ghibli_films <- read_json('https://ghibliapi.herokuapp.com/films')
+```
+
+## Example 2: COVID-19 Canada Open Data Working Group dataset
+
+1. This [API](https://opencovid.ca/api/) is also described on [ProgrammableWeb](https://www.programmableweb.com)
+2. API dataset is available under the Creative Commons Attribution 4.0 International license.
+3. The base url for this API is api.opencovid.ca
+4. API parameters are described [here and below](api.opencovid.ca)
+5. This request will return JSON with all the mortality cases after Jan 25, 2020 in Canada. http://api.opencovid.ca/individual?stat=mortality&after=25-01-2020. 
+
+To understand how this request works, we need to decipher its parts *http://api.opencovid.ca/individual?stat=mortality&after=25-01-2020*:
+1. The base url: http://api.opencovid.ca;
+2. Endpoints: This API provides four endpoints: (1) individual, (2) timeseries, (3) summary, and (4) version. Here we use */individual/ to get individual-level data;
+3.Parameter string: starts with *?*;
+
+  - *stat=mortality* is a stat parameter (two choices are available: cases or mortality) with specified *mortality* value;
+  - *&* joins parameters
+  - *after=25-01-2020* is a parameter that returns data on or after the specified date, here Jan 25, 2020
+  
+```{r}
+# library(tidyverse)
+# library(jsonlite)
+# covid_cases <- read_json('http://api.opencovid.ca/individual?stat=mortality&after=25-01-2020')
+```
+
+# Youtube Data API
+
+It is time create your first(?) API key. During this course we will parse data with [Youtube API](https://developers.google.com/youtube/v3/getting-started). Follow the instructions carefully and create your own API key.
+
+## Search request
+
+First, we will try to use [search requests](https://developers.google.com/youtube/v3/docs/search)
+
+The whole description of this method is [here](https://developers.google.com/youtube/v3/docs/search/list)
+
+Generally, API requests follow this formula: REQUEST_TO_API?PARAMETER=VALUE_OF_A_PARAMETER&PARAMETER_2=VALUE_OF_A_PARAMETER_2&API=YOUR_API_KEY.
+
+In this search request to API: https://www.googleapis.com/youtube/v3/search
+It has two required parameters: 
+
+1. part=snippet,
+2. key=YOUR_API_KEY
+
+All other parameters are optional:
+
+1. q=r%20programming will search for videos with with this query
+2. maxResults=1 will return only the first video
+3. etc., etc.
+
+To combine:
+```{r}
+# first_video <- read_json('https://www.googleapis.com/youtube/v3/search?part=snippet&key=YOUR_API_KEY&q=r%20programming&maxResults=1')
+```
+
+```{r}
+# first_100_comments <- read_json('https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&order=time&videoId=fp5-XQFr_nk')
+```
+
+```{r}
+# text_comments <- c()
+# like_count <- c()
+# for (i in 1:100){
+#   text_comments[[i]] <- first_100_comments$items[[i]]$snippet$topLevelComment$snippet$textDisplay
+#     like_count[[i]] <- first_100_comments$items[[i]]$snippet$topLevelComment$snippet$likeCount
+# }
+
+# data.frame(
+#     likes = unlist(like_count),
+#     texts = unlist(text_comments)
+# ) %>% 
+#   View()
+```
+

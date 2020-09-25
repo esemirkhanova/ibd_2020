@@ -1,0 +1,30 @@
+---
+title: "R packages"
+author: "Александр Бызов"
+date: "20 09 2020"
+output: html_document
+---
+
+# Packages in R
+
+R packages are collections of functions that are developed to enhance the basic capabilities of R greatly. To install a package you need to use *install.packages('Package name in quotation marks')* function.
+```{r}
+#install.packages('tidyverse') # Tidyverse is a collection of packages to work with data
+```
+To install several packages, you may pass a character vector with packages' names to *install.packages()* function.
+```{r}
+#install.packages(c('tidyverse', 'jsonlite')) # jsonlite is a package to parse web data in json format
+```
+When you have installed needed packages, you may use its functions in two ways:
+1. Write down package_name::function_name to use needed function
+```{r}
+#jsonlite::read_json()
+```
+2. Load package in working memory with *library(package_name_without_quotation_marks)* function
+```{r}
+library(jsonlite)
+#read_json()
+```
+
+To learn more about packages [see](https://www.datacamp.com/community/tutorials/r-packages-guide)
+[Tidyverse, a collection of packages to work with data](https://www.tidyverse.org/)
