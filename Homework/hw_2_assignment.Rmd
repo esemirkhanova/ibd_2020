@@ -1,0 +1,35 @@
+---
+title: "Homework 2"
+author: "Alexandr Byzov"
+date: "20 09 2020"
+output: html_document
+---
+
+
+# Loops
+
+1.Сreate df_for_loop
+```{r}
+set.seed(42)
+df_for_loop <- data.frame(
+  id = 1:50,
+  question_1 = sample(1:7, 50, replace = T),
+  question_2 = sample(1:7, 50, replace = T)
+)
+```
+
+2. Loop over each row of df_for_loop and compute mean of scores of question_1 and question_2 ((q1 + q2)/2). Hint: use nrow() to get number of rows. Save the resulting vector to *vector_mean*
+
+# Choices
+
+```{r}
+vector_loop_if <- c(1, 3, 2, 1, 2, 3, 1, 3, 2)
+```
+
+3. Loop over each value of vector_loop_if. If the value of this vector is odd, then add to this value 1. Assign results to *vector_even*
+
+# API
+
+4. Go to [ProgrammableWeb](https://www.programmableweb.com/) and find at least three APIs with an access to a database. Write down your answer to *answer_4* as a vector with three values.
+5. Create a query (with read_json) that returns JSON data WITHOUT API Key. Save resulting list to a *list_5* variable.
+

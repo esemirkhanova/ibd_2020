@@ -15,6 +15,8 @@ You may find files for your homework [here](https://github.com/AlexByzov93/ibd_2
 
 1. [Homework for class 1](https://github.com/AlexByzov93/ibd_2020/tree/master/Homework/hw_1_assignment.html). The deadline is Sept, 25. 17:00. You can upload your assignment [here](https://www.dropbox.com/request/1rWzNbejgaojhRGAigaM)
 
+1. [Homework for class 1](https://github.com/AlexByzov93/ibd_2020/tree/master/Homework/hw_2_assignment.html). The deadline is Oct, 5. 23:59. You can upload your assignment [here](https://www.dropbox.com/request/ngXsq2ZWA2bwucwLrALx)
+
 ## Grade
 
 0.12 x Class attendance + 0.13 x Class participation + 0.45 x Essay + 0.3 x Homework
